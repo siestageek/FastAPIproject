@@ -17,6 +17,7 @@ app.mount('/static', StaticFiles(directory='views/static'), name='static')
 app.include_router(member_router)
 app.include_router(board_router, prefix='/board')
 
+
 # 서버시작시 디비 생성
 @app.on_event('startup')
 async def on_startup():
