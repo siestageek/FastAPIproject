@@ -36,3 +36,19 @@ class BoardService():
         return result
 
 
+    @staticmethod
+    def selectone_board(bno):
+        with Session() as sess:
+            stmt = select(Board).filter_by(bno=bno)
+            result = sess.execute(stmt).first()
+
+        return result
+
+
+
+
+
+
+
+
+
