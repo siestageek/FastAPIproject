@@ -1,4 +1,4 @@
-from sqlalchemy import insert, select, update, func
+from sqlalchemy import insert, select, update, func, or_
 
 from app.dbfactory import Session
 from app.models.board import Board
@@ -39,12 +39,9 @@ class BoardService():
 
 
     @staticmethod
-    def find_select_board(ftype, fkey):
-        #stnum = (cpg - 1) * 25
-        stnum = 0
-        with Session() as sess:
-            #cnt = sess.query(func.count(Board.bno)).scalar() # 총게시글수
-
+    def find_select_board(ftype, fkey, cpg):
+        stnum = (cpg - 1) * 25
+        with (Session() as sess):
             stmt = select(Board.bno, Board.title, Board.userid,
                           Board.regdate, Board.views)
 
@@ -52,12 +49,17 @@ class BoardService():
             myfilter = Board.title.like(fkey)
             if ftype == 'userid': myfilter = Board.userid.like(fkey)
             elif ftype == 'contents': myfilter = Board.contents.like(fkey)
+            elif ftype == 'titconts': myfilter = \
+                      or_(Board.title.like(fkey), Board.contents.like(fkey))
 
             stmt = stmt.filter(myfilter)\
                 .order_by(Board.bno.desc()).offset(stnum).limit(25)
             result = sess.execute(stmt)
 
-        return result
+            cnt = sess.query(func.count(Board.bno))\
+                .filter(myfilter).scalar() # 총게시글수
+
+        return result, cnt
 
 
     @staticmethod
