@@ -20,10 +20,10 @@ gallery_router.mount('/static', StaticFiles(directory='views/static'), name='sta
 @gallery_router.get('/list/{cpg}', response_class=HTMLResponse)
 def list(req: Request, cpg: int):
     # stpg = int((cpg - 1) / 10) * 10 + 1
-    # bdlist, cnt = BoardService.select_board(cpg)
+    galist, cnt = GalleryService.select_gallery(cpg)
     # allpage = ceil(cnt /25)
     return templates.TemplateResponse(
-        'gallery/list.html', {'request': req, 'gallist': None,
+        'gallery/list.html', {'request': req, 'galist': galist,
              'cpg':cpg, 'stpg':1, 'allpage': 1, 'baseurl': '/gallery/list/'})
 
 
