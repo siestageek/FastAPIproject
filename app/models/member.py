@@ -1,11 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy import Column, Integer, String, DateTime
-from sqlalchemy.orm import DeclarativeBase
-
-
-class Base(DeclarativeBase):
-    pass
+from app.models.base import Base
 
 class Member(Base):
     __tablename__ = 'member'
