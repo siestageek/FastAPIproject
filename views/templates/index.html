@@ -3,12 +3,11 @@
 {% block main %}
 <main>
     <div class="text-center">
-        <img src="{{ url_for('static', path='/img/newjins.png') }}"
-             alt="뉴진스 토끼">
+        <img src="/static/img/newjins.png" alt="뉴진스 토끼">
         <div>
-            <a href="{{ url_for('static', path='/cat.png') }}">이미지</a>
-            <a href="{{ url_for('static', path='/doc.zip') }}">압축파일</a>
-            <a href="{{ url_for('static', path='/hello.js') }}">자바스크립트</a>
+            <a href="/static/cat.png">이미지</a>
+            <a href="/static/doc.zip">압축파일</a>
+            <a href="/static/hello.js">자바스크립트</a>
         </div>
     </div>
 </main>

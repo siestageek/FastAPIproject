@@ -12,6 +12,7 @@ class Gallery(Base):
     gno = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String(18), nullable=False)
     userid = mapped_column(String(18), ForeignKey('member.userid'))
+    gano = mapped_column(String(18), ForeignKey('item.gano'))
     regdate = Column(DateTime, default=datetime.now)
     views = Column(Integer, default=0)
     contents = Column(Text, nullable=False)
